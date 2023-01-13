@@ -26,33 +26,3 @@ public class fop3d {
     }
 }
 
-
-/*
-    public class Main{
-        public static void main(String[] args)throws Exception{
-            String s="[2022-06-01T09:16:23.166]_slurm_rpc_submit_batch_job: JobId=42808 InitPrio=20861 usec=331";
-            String[] line = s.split(" ");
-            String find = line[3];
-            System.out.println(find.substring(0,5));
-            if (find.substring(0,5).equals("usec=")){
-                System.out.println("Found");
-            }else{
-                System.out.println("bla");
-            }
-            int time = Integer.parseInt(line[3].substring(5));
-            System.out.println(time);
-            int sum = 5;
-            System.out.println(sum+time);
-
-            int a = 3;
-            while (a>0){
-                if(a == 1){
-                    System.out.println("yeah");
-                    a--;
-
-
-            }
-        }
-    }
-
-*/
