@@ -1,3 +1,5 @@
+package src;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,7 +11,6 @@ import java.util.regex.Pattern;
 //[2022-06-01T15:30:18.119] error: This association 201(account='free', user='liew.wei.shiung', partition='(null)') does not have access to qos long
 
 public class error {
-    // hello
     protected LinkedHashMap<String,String> Long_error = new LinkedHashMap<>();                  //Linked Hashmap
 
     protected LinkedHashMap<String, String> Normal_error = new LinkedHashMap<>();
