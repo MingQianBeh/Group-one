@@ -24,13 +24,16 @@ public class fop {
         for (LocalDate date = startDate; date.isBefore(endDate.plusDays(1)); date = date.plusDays(1)){
             String dateString = date.format(formatter);   //"2022-06-01"
             
-            if(!found){                         //finding the starting date
+            while(!found){                         //finding the starting date
               line=loginput.nextLine();         //read logfile
               lineArray=line.split(" ");  //string array
+              if(lineArray[0].contains(dateString)){
+                  found=true;                 //stop finding starting date
+              }
             }
             
             while(lineArray[0].contains(dateString)){   //check for date
-                found=true;             //stop finding starting date
+                            
                 for(int i=0;i<lineArray.length;i++){        //loop through string array
                         if(lineArray[i].contains("Allocate")){   //find created job
                             createdNum++;                           
