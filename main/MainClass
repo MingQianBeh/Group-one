@@ -9,6 +9,8 @@ public class MainClass {
         fop2 fop2Ins=new fop2();
         TypeOfError TypeOfErrorIns=new TypeOfError();
         error errorIns=new error();
+        TimeFrame TimeFrameIns=new TimeFrame();
+        logProcessor logProcessorIns =new logProcessor();
         
         //Scanner and variable
         Scanner input=new Scanner(System.in);
@@ -19,7 +21,7 @@ public class MainClass {
         System.out.println("--------------------------------------------------------------");
         System.out.println("");
         System.out.println("");
-        System.out.println("                 Welcome to System analysis XXXXXX");
+        System.out.println("                   Welcome to System analysis");
         
         while(true){
             System.out.println("");
@@ -31,7 +33,10 @@ public class MainClass {
             System.out.println("2.Number of jobs by partitions");
             System.out.println("3.All type of errors exist");
             System.out.println("4.Detail of error: association does not have access to qos long/normal");
+            System.out.println("5.Date of jobs allocated and ended within a given time range");
+            System.out.println("6.Execution time of each job submitted to UMHPC and average execution time.");
             System.out.println("Please enter the corresponding number to access corresponding data(Enter '0' to quit):");
+            System.out.print("---->");
             
              int userInput=input.nextInt();     //get user input
              
@@ -59,8 +64,14 @@ public class MainClass {
              else if(userInput==4){
                  errorIns.getLongOrNormal();
              }
+              else if(userInput==5){
+                 TimeFrameIns.getTimeFrame();
+             }
+              else if(userInput==6){
+                 logProcessorIns.getExecutionTime();
+             }
              else{
-                 System.out.println("Please enter an valid number....");
+                 System.out.println("Please enter a valid number....");
              }
         }
         
@@ -68,5 +79,6 @@ public class MainClass {
         System.out.println("Thank you for using our system!");
         System.out.println("--------------------------------------------------------------");
         
+            
     }
 }
