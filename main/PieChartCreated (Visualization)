@@ -1,0 +1,61 @@
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Side;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.chart.*;
+import javafx.scene.Group;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+ 
+public class PieChartCreated extends Application {
+ 
+    @Override public void start(Stage stage) {
+        Scene scene = new Scene(new Group());
+        stage.setTitle("Number of Jobs Created(Months)");
+        stage.setWidth(500);
+        stage.setHeight(500);
+ 
+        ObservableList<PieChart.Data> pieChartData =
+                FXCollections.observableArrayList(
+                new PieChart.Data("June", 2191),
+                new PieChart.Data("July", 1304),
+                new PieChart.Data("August", 1232),
+                new PieChart.Data("September", 1253),
+                new PieChart.Data("October", 1778),
+                new PieChart.Data("November", 907),
+                new PieChart.Data("December", 551));
+        final PieChart chart = new PieChart(pieChartData);
+        chart.setTitle("Number of Jobs Created by Month (Total: 9216)");
+        chart.setLabelLineLength(10);
+        chart.setLegendSide(Side.LEFT);
+        final Label caption = new Label("");
+        caption.setTextFill(Color.BLACK);
+        caption.setStyle("-fx-font: 15 arial;");
+
+        for (final PieChart.Data data : chart.getData()) {
+            data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED,
+                e -> {
+                    double total = 0;
+                    for (PieChart.Data d : chart.getData()) {
+                        total += d.getPieValue();
+                    }
+                    caption.setTranslateX(e.getSceneX());
+                    caption.setTranslateY(e.getSceneY());
+                    String text = String.format("%.1f%%", 100*data.getPieValue()/total) ;
+                    caption.setText(text);
+                 }
+                );
+        }
+
+        ((Group) scene.getRoot()).getChildren().addAll(chart,caption);
+        stage.setScene(scene);
+        stage.show();
+    }
+ 
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
