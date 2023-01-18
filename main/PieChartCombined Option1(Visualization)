@@ -1,0 +1,47 @@
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+
+public class PieChart1 extends Application {
+
+    @Override
+    public void start(Stage stage) {
+        ObservableList<PieChart.Data> pieChartData1 =
+                FXCollections.observableArrayList(
+                        new PieChart.Data("June (2191)", 2191),
+                        new PieChart.Data("July (1304)", 1304),
+                        new PieChart.Data("August (1232)", 1232),
+                        new PieChart.Data("September (1253)", 1253),
+                        new PieChart.Data("October (1778)", 1778),
+                        new PieChart.Data("November (907)", 907),
+                        new PieChart.Data("December (551)", 551));
+        PieChart chart1 = new PieChart(pieChartData1);
+        chart1.setTitle("Number of Jobs Created by Month (Total: 9216)");
+
+        ObservableList<PieChart.Data> pieChartData2 =
+                FXCollections.observableArrayList(
+                        new PieChart.Data("June (1893)", 1893),
+                        new PieChart.Data("July (1139)", 1139),
+                        new PieChart.Data("August (1186)", 1186),
+                        new PieChart.Data("September (1153)", 1153),
+                        new PieChart.Data("October (1564)", 1564),
+                        new PieChart.Data("November (1092)", 1092),
+                        new PieChart.Data("December (452)", 452));
+        PieChart chart2 = new PieChart(pieChartData2);
+        chart2.setTitle("Number of Jobs Ended by Month (Total: 8479)");
+
+        HBox hbox = new HBox(chart1, chart2);
+
+        Scene scene = new Scene(hbox);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
