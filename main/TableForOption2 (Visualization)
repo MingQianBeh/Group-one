@@ -1,0 +1,122 @@
+import javafx.application.Application;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
+ 
+public class TableView2 extends Application {
+ 
+    private TableView<Partition> table = new TableView<Partition>();
+    private final ObservableList<Partition> data =
+        FXCollections.observableArrayList(
+            new Partition("k40c", 295, "GPU"),
+            new Partition("k10", 428,"GPU"),
+            new Partition("v100s", 588,"GPU"),
+            new Partition("titan", 640,"GPU"),
+            new Partition("epyc", 2756, "CPU"),
+            new Partition("opteron", 4509, "CPU")
+        );
+   
+    public static void main(String[] args) {
+        launch(args);
+    }
+ 
+    @Override
+    public void start(Stage stage) {
+        Scene scene = new Scene(new Group());
+        stage.setTitle("Number of Jobs by Partitions");
+        stage.setWidth(650);
+        stage.setHeight(550);
+ 
+        final Label label = new Label("Number of Jobs by Partitions 💼");
+        label.setTextFill(Color.PURPLE);
+        label.setFont(Font.font("Arial", FontWeight.BOLD, 35));
+ 
+        table.setEditable(true);
+ 
+        TableColumn firstCol = new TableColumn("Partitions");
+        firstCol.setMinWidth(200);
+        firstCol.setCellValueFactory(
+                new PropertyValueFactory<Partition, String>("Partition"));
+ 
+        TableColumn secCol = new TableColumn("Frequency");
+        secCol.setMinWidth(200);
+        secCol.setCellValueFactory(
+                new PropertyValueFactory<Partition, String>("Frequency"));
+ 
+        TableColumn lastCol = new TableColumn("CPU/GPU");
+        lastCol.setMinWidth(200);
+        lastCol.setCellValueFactory(
+                new PropertyValueFactory<Partition, String>("Cgpu"));
+        
+
+        firstCol.setStyle("-fx-font-size:25px;-fx-alignment: CENTER;");
+        secCol.setStyle("-fx-font-size:25px;-fx-alignment: CENTER;;");
+        lastCol.setStyle("-fx-font-size:25px;-fx-alignment: CENTER;");
+        
+ 
+        table.setItems(data);
+        table.setPrefWidth(600);
+        table.setPrefHeight(400);
+        table.getColumns().addAll(firstCol, secCol, lastCol);
+ 
+        final VBox vbox = new VBox();
+        vbox.setSpacing(5);
+        vbox.setPadding(new Insets(10, 0, 0, 10));
+        vbox.getChildren().addAll(label, table);
+ 
+        ((Group) scene.getRoot()).getChildren().addAll(vbox);
+ 
+        stage.setScene(scene);
+        stage.show();
+    }
+ 
+    public static class Partition {
+ 
+        private final SimpleStringProperty partition;
+        private final SimpleIntegerProperty frequency;
+        private final SimpleStringProperty cgpu;
+ 
+        private Partition(String partt, int freq, String cgpu) {
+            this.partition = new SimpleStringProperty(partt);
+            this.frequency = new SimpleIntegerProperty(freq);
+            this.cgpu = new SimpleStringProperty(cgpu);
+        }
+ 
+        public String getPartition() {
+            return partition.get();
+        }
+ 
+        public void setPartition(String partt) {
+            partition.set(partt);
+        }
+ 
+        public int getFrequency() {
+            return frequency.get();
+        }
+ 
+        public void setFrequency(int freq) {
+            frequency.set(freq);
+        }
+ 
+        public String getCgpu() {
+            return cgpu.get();
+        }
+ 
+        public void setCgpu(String cgpu) {
+            this.cgpu.set(cgpu);
+        }
+    }
+} 
