@@ -1,0 +1,122 @@
+import javafx.application.Application;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
+ 
+public class TableView1 extends Application {
+ 
+    private TableView<Month> table = new TableView<Month>();
+    private final ObservableList<Month> data =
+        FXCollections.observableArrayList(
+            new Month("June", 2191, 1893),
+            new Month("July", 1304,1139),
+            new Month("August", 1232,1186),
+            new Month("September", 1253,1153),
+            new Month("October", 1778,1564),
+            new Month("November", 907,1092),
+            new Month("December", 551,452)
+        );
+   
+    public static void main(String[] args) {
+        launch(args);
+    }
+ 
+    @Override
+    public void start(Stage stage) {
+        Scene scene = new Scene(new Group());
+        stage.setTitle("Number of Jobs Created and Ended(Months)");
+        stage.setWidth(800);
+        stage.setHeight(500);
+ 
+        final Label label = new Label("Number of Jobs Created and Ended 💼 (Months)");
+        label.setTextFill(Color.BROWN);
+        label.setFont(Font.font("Arial", FontWeight.BOLD, 30));
+ 
+        table.setEditable(true);
+ 
+        TableColumn firstCol = new TableColumn("Month");
+        firstCol.setMinWidth(150);
+        firstCol.setCellValueFactory(
+                new PropertyValueFactory<Month, String>("month"));
+ 
+        TableColumn secCol = new TableColumn("Number of Jobs Created");
+        secCol.setMinWidth(300);
+        secCol.setCellValueFactory(
+                new PropertyValueFactory<Month, String>("create"));
+ 
+        TableColumn lastCol = new TableColumn("Number of Jobs Ended");
+        lastCol.setMinWidth(300);
+        lastCol.setCellValueFactory(
+                new PropertyValueFactory<Month, String>("end"));
+        
+        
+        firstCol.setStyle("-fx-font-size:20px;-fx-alignment: CENTER;");
+        secCol.setStyle("-fx-font-size:20px;-fx-alignment: CENTER;;");
+        lastCol.setStyle("-fx-font-size:20px;-fx-alignment: CENTER;");
+ 
+        table.setItems(data);
+        table.setPrefWidth(750);
+        table.setPrefHeight(400);
+        table.getColumns().addAll(firstCol, secCol, lastCol);
+ 
+        final VBox vbox = new VBox();
+        vbox.setSpacing(5);
+        vbox.setPadding(new Insets(10, 0, 0, 10));
+        vbox.getChildren().addAll(label, table);
+ 
+        ((Group) scene.getRoot()).getChildren().addAll(vbox);
+ 
+        stage.setScene(scene);
+        stage.show();
+    }
+ 
+    public static class Month {
+ 
+        private final SimpleStringProperty month;
+        private final SimpleIntegerProperty create;
+        private final SimpleIntegerProperty end;
+ 
+        private Month(String month, int create, int end) {
+            this.month = new SimpleStringProperty(month);
+            this.create = new SimpleIntegerProperty(create);
+            this.end = new SimpleIntegerProperty(end);
+        }
+ 
+        public String getMonth() {
+            return month.get();
+        }
+ 
+        public void setMonth(String month) {
+            this.month.set(month);
+        }
+ 
+        public int getCreate() {
+            return create.get();
+        }
+ 
+        public void setCreate(int create) {
+            this.create.set(create);
+        }
+ 
+        public int getEnd() {
+            return this.end.get();
+        }
+ 
+        public void setEnd(int end) {
+            this.end.set(end);
+        }
+    }
+} 
