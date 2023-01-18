@@ -29,7 +29,7 @@ public class PieChartEnded extends Application {
                         new PieChart.Data("November", 1092),
                         new PieChart.Data("December", 452));
         PieChart chart = new PieChart(pieChartData);
-        chart.setTitle("Number of Jobs Ended by Month(Total: 8479)");
+        chart.setTitle("Number of Jobs Ended by Month (Total: 8479)");
         chart.setLabelLineLength(10);
         chart.setLegendSide(Side.LEFT);
         final Label caption = new Label("");
