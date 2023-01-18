@@ -1,0 +1,142 @@
+import javafx.application.Application;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
+ 
+public class TableView4 extends Application {
+ 
+    private TableView<User> table = new TableView<User>();
+    private final ObservableList<User> data =
+        FXCollections.observableArrayList(
+            new User("lobbeytan", "long&normal", 3),
+            new User("tingweijing", "long&normal", 2),
+            new User("f4ww4z", "long", 4),
+            new User("aznul", "long", 2),
+            new User("hass", "long", 1),
+            new User("liew.wei.shiung", "long", 3),
+            new User("shahreeza", "long&normal", 6),
+            new User("roland", "long&normal", 4),
+            new User("farhatabjani", "long&normal", 3),
+            new User("han", "long&normal", 11),
+            new User("aah", "long&normal", 12),
+            new User("mk_98", "long&normal", 22),
+            new User("hva170037", "long&normal", 5),
+            new User("yatyuen.lim", "long", 1),
+            new User("chiuling", "long", 2),
+            new User("noraini", "long", 4),
+            new User("htt_felicia", "long&normal", 21),
+            new User("xinpeng","normal",1),
+            new User("janvik","normal",4),
+            new User("lin0618","normal",4),
+            new User("fahmi8","normal",1),
+            new User("kurk","normal",1),
+            new User("fairus","normal",10),
+            new User("manoj","normal",4),
+            new User("ongkuanhung","normal",1),
+            new User("hongvin","normal",9)
+        );
+   
+    public static void main(String[] args) {
+        launch(args);
+    }
+ 
+    @Override
+    public void start(Stage stage) {
+        Scene scene = new Scene(new Group());
+        stage.setTitle("Type of Inaccessibility to Qos");
+        stage.setWidth(430);
+        stage.setHeight(900);
+ 
+        final Label label = new Label("Type of Inaccessibility to Qos ⛔");
+        label.setTextFill(Color.RED);
+        label.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+ 
+        table.setEditable(true);
+ 
+        TableColumn firstCol = new TableColumn("Username");
+        firstCol.setMinWidth(120);
+        firstCol.setCellValueFactory(
+                new PropertyValueFactory<User, String>("Username"));
+ 
+        TableColumn secCol = new TableColumn("Type(long/normal)");
+        secCol.setMinWidth(150);
+        secCol.setCellValueFactory(
+                new PropertyValueFactory<User, String>("type"));
+ 
+        TableColumn lastCol = new TableColumn("Frequency");
+        lastCol.setMinWidth(120);
+        lastCol.setCellValueFactory(
+                new PropertyValueFactory<User, String>("Frequency"));
+        
+        
+        firstCol.setStyle("-fx-font-size:15px;-fx-alignment: CENTER;");
+        secCol.setStyle("-fx-font-size:15px;-fx-alignment: CENTER;;");
+        lastCol.setStyle("-fx-font-size:15px;-fx-alignment: CENTER;");
+ 
+        table.setItems(data);
+        table.setPrefWidth(350);
+        table.setPrefHeight(780);
+        table.getColumns().addAll(firstCol, secCol, lastCol);
+ 
+        final VBox vbox = new VBox();
+        vbox.setSpacing(5);
+        vbox.setPadding(new Insets(10, 0, 0, 10));
+        vbox.getChildren().addAll(label, table);
+ 
+        ((Group) scene.getRoot()).getChildren().addAll(vbox);
+ 
+        stage.setScene(scene);
+        stage.show();
+    }
+ 
+    public static class User {
+ 
+        private final SimpleStringProperty name;
+        private final SimpleStringProperty type;
+        private final SimpleIntegerProperty freq;
+ 
+        private User(String name, String type, int freq) {
+            this.name = new SimpleStringProperty(name);
+            this.type = new SimpleStringProperty(type);
+            this.freq = new SimpleIntegerProperty(freq);
+        }
+ 
+        public String getUsername() {
+            return name.get();
+        }
+ 
+        public void setUsername(String name) {
+            this.name.set(name);
+        }
+ 
+        public String getType() {
+            return type.get();
+        }
+ 
+        public void setType(String type) {
+            this.type.set(type);
+        }
+        
+        public int getFrequency() {
+            return freq.get();
+        }
+ 
+        public void setFrequency(int freq) {
+            this.freq.set(freq);
+        }
+        
+    }
+} 
